@@ -5,7 +5,8 @@
     /*box-shadow: inset 0px 6px 0px #777;  initial gray color to the top bar    */
     border: 1px solid black;
     margin: 3%;
-    margin-top: 0;
+    margin-top: 20px;
+
     padding-top: 0;
 }
 
@@ -44,13 +45,12 @@ form-line {
 /*//////////// Start Base CSS ////////////*/
 
 body {
-	background-color: #66ccff;
-	background: #66ccff; 
+	background: #ffffff; 
 }
 
 .head {
 	width: 100%;
-	margin: 0;
+	margin-bottom: 10px;
 	padding:0;
 	background-color: #e8e8e8;
 	padding-top: 1em;
