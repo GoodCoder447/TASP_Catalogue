@@ -1,4 +1,4 @@
-var categories = ["Appliances", "Clothing", "Electronics", "Fitness", "Home", "Jewelry", "Outdoor", "Toys"]
+var categories = ["Appliances", "Clothing", "Electronics", "Furniture", "Home", "Jewelry", "Outdoor", "Toys"]
 var categoryLength = categories.length;
 console.log("gi");
 
@@ -7,7 +7,13 @@ $(document).ready(function() {
 	for(i = 0; i < categoryLength; i++) {
 		innerHtml += '<li class="nav-item active">'
 		innerHtml += '<a class="nav-link" href="';
-		innerHtml += '#' + '">';
+
+		if (categories[i] == "Furniture") {
+			innerHtml += 'Furniture.html">'
+		} else {
+			innerHtml += '#' + '">';
+		}
+
 		innerHtml += categories[i] + '</a></li>';
 
 		// console.log(categories[i]);
