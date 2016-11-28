@@ -21,7 +21,8 @@ var Db = require('mongodb').Db,
     GridStore = require('mongodb').GridStore,
     Grid = require('mongodb').Grid,
     Code = require('mongodb').Code,
-    assert = require('assert');
+    assert = require('assert'),
+    mongodb = require('mongodb');
 	
 //mongodb bktlstr db url	
 var url = 'mongodb://localhost:27017/TASP';	
@@ -172,7 +173,7 @@ io.on('connection', function(socket) {
 	socket.on('addItem', function(item) {
 		MongoClient.connect(url, function(err, db) {
 			assert.equal(null, err);
-			var collection = db.collection(item.user);
+			var collection = db.collection(item.table);
 			collection.insert(item);
 			db.close();
 		});
@@ -181,7 +182,7 @@ io.on('connection', function(socket) {
 	socket.on('editItem',function(item) {
 		MongoClient.connect(url, function(err, db) {
 			assert.equal(null, err);
-			db.collection(item.user).updateOne(
+			db.collection(item.table).updateOne(
 			{ "name" : item.name },
 			{
 				$set: { "complete": item.bool}
@@ -193,8 +194,8 @@ io.on('connection', function(socket) {
 	socket.on('removeItem', function(item) {
 		MongoClient.connect(url, function(err,db) {
 			assert.equal(null,err);
-			db.collection(item.user).deleteOne(
-			{ "name" : item.name}
+			db.collection(item.table).deleteOne(
+			{ "_id" : new mongodb.ObjectId(item.name._id)}
 			);
 			db.close();
 		});

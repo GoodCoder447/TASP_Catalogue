@@ -53,29 +53,29 @@ $scope.addItem = function() {
         paid_by: '',
         paid: '',
         picked_up: '',
-		user: 'items'
+		table: 'items'
 	}
 	socket.emit('addItem',item);
 	getitems();
 }
-//edit item in user bucketlist
+//edit item in user list
 $scope.editItem = function(item) {
 	var changeto = false;
 	if (item.complete == false) {
 		changeto = true;
 	}
 	var item = {
-		user: $scope.user,
+		table: $scope.user,
 		name: item.name,
 		bool: changeto
 	}
 	socket.emit('editItem',item);
 	getitems();
 }
-//remove item in user bucketlist
+//remove item in user list
 $scope.removeItem = function(itemName) {
 	var item = {
-		user: 'items',
+		table: 'items',
 		name: itemName
 	}
 	socket.emit('removeItem',item);
@@ -85,7 +85,6 @@ $scope.removeItem = function(itemName) {
 socket.on('receiveList',function(list){
 	$scope.$apply(function() {
 		$scope.items = list;
-        console.log($scope.items);
 	});
  
 })

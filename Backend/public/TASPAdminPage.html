@@ -149,9 +149,11 @@
             <span> {{item.desc}} </span>
             <span> {{item.price}} </span>
             <span> {{item.category}} </span>
-            <button type="button" class="btn btn-danger" ng-click="removeItem(item.name)"><span class="glyphicon glyphicon-remove"></button>
+            <button type="button" class="btn btn-danger" ng-click="removeItem(item)"><span class="glyphicon glyphicon-remove"></button>
             <button type="button" class="btn btn-warning" ng-click="editItem(item)">Edit</button>
-			<button type="button" class="btn" ng-click="makePublic(item)">Make Public</button>
+			<button type="button" class="btn" ng-click="makePublic(item)">Move to Pickup</button>
+			<button type="button" class="btn" ng-click="makePublic(item)">Move to Sold</button>
+			<button type="button" class="btn" ng-click="makePublic(item)">Move to Archive</button>
           </li>
       </ul>
 		
@@ -160,6 +162,11 @@
 	
   
 
+	
+
+</body>
+    
+    
 <style>
     body{
     
@@ -197,8 +204,5 @@ function imageIsLoaded(e) {
     $('#img-responsive').attr('src',e.target.result);
   };
 </script>
-	
-
-</body>
 
 </html>
