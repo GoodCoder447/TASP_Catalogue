@@ -41,7 +41,7 @@ socket.on('cPassRes', function(result) {
 });
     
     
-//add item to user bucketlist
+//add item to list
 $scope.addItem = function() {
 	var item = {
 		desc: document.getElementById("desc").value,
@@ -52,27 +52,41 @@ $scope.addItem = function() {
         pay_method: '',
         paid_by: '',
         paid: '',
-        picked_up: '',
 		table: 'items'
 	}
 	socket.emit('addItem',item);
 	getitems();
 }
-//edit item in user list
-$scope.editItem = function(item) {
-	var changeto = false;
-	if (item.complete == false) {
-		changeto = true;
-	}
+//move item in list
+$scope.movePickup = function(item) {
 	var item = {
-		table: $scope.user,
-		name: item.name,
-		bool: changeto
+		table: 'items',
+        newtable: 'pickup',
+		name: item,
 	}
 	socket.emit('editItem',item);
 	getitems();
 }
-//remove item in user list
+$scope.moveSold = function(item) {
+	var item = {
+		table: 'items',
+        newtable: 'sold',
+		name: item,
+	}
+	socket.emit('editItem',item);
+	getitems();
+}
+$scope.moveItems = function(item) {
+	var item = {
+		table: 'items',
+        newtable: 'items',
+		name: item,
+	}
+	socket.emit('editItem',item);
+	getitems();
+}
+
+//remove item in list
 $scope.removeItem = function(itemName) {
 	var item = {
 		table: 'items',
@@ -81,6 +95,8 @@ $scope.removeItem = function(itemName) {
 	socket.emit('removeItem',item);
 	getitems();
 }
+
+
     
 socket.on('receiveList',function(list){
 	$scope.$apply(function() {

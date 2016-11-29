@@ -134,7 +134,7 @@
 		</div>
           
         </div>
-        
+    <div>
         <h2 id="bucketList">Item List</h2>
       <p>
         <label for="new-task">Add Item</label><input name= "desc" id="desc" type="text" ng-required>
@@ -143,19 +143,56 @@
           <br><button type="button" class="btn btn-success" ng-click="addItem()"><span class="glyphicon glyphicon-plus"></button>
       </p>
           
-        <ul ng-repeat="item in items">
+        <ul ng-repeat="item in items | filter:{table:'items'}">
           <li> 
-            
             <span> {{item.desc}} </span>
             <span> {{item.price}} </span>
             <span> {{item.category}} </span>
+            <span> {{item.table}} </span>
             <button type="button" class="btn btn-danger" ng-click="removeItem(item)"><span class="glyphicon glyphicon-remove"></button>
             <button type="button" class="btn btn-warning" ng-click="editItem(item)">Edit</button>
-			<button type="button" class="btn" ng-click="makePublic(item)">Move to Pickup</button>
-			<button type="button" class="btn" ng-click="makePublic(item)">Move to Sold</button>
-			<button type="button" class="btn" ng-click="makePublic(item)">Move to Archive</button>
+			<button type="button" class="btn" ng-click="movePickup(item)">Move to Pickup</button>
+			<button type="button" class="btn" ng-click="moveSold(item)">Move to Sold</button>
+			<button type="button" class="btn" ng-click="moveArchive(item)">Archive</button>
           </li>
       </ul>
+    </div>
+        
+    <div>
+        <h2 id="bucketList">Pickup List</h2>
+          
+        <ul ng-repeat="item in items | filter:{table:'pickup'}">
+          <li> 
+            <span> {{item.desc}} </span>
+            <span> {{item.price}} </span>
+            <span> {{item.category}} </span>
+            <span> {{item.table}} </span>
+            <button type="button" class="btn btn-danger" ng-click="removeItem(item)"><span class="glyphicon glyphicon-remove"></button>
+            <button type="button" class="btn btn-warning" ng-click="editItem(item)">Edit</button>
+			<button type="button" class="btn" ng-click="moveItems(item)">Move to Items</button>
+			<button type="button" class="btn" ng-click="moveSold(item)">Move to Sold</button>
+			<button type="button" class="btn" ng-click="moveArchive(item)">Archive</button>
+          </li>
+      </ul>
+    </div>
+        
+    <div>
+        <h2 id="bucketList">Sold List</h2>
+      
+        <ul ng-repeat="item in items | filter:{table:'sold'}">
+          <li> 
+            <span> {{item.desc}} </span>
+            <span> {{item.price}} </span>
+            <span> {{item.category}} </span>
+            <span> {{item.table}} </span>
+            <button type="button" class="btn btn-danger" ng-click="removeItem(item)"><span class="glyphicon glyphicon-remove"></button>
+            <button type="button" class="btn btn-warning" ng-click="editItem(item)">Edit</button>
+			<button type="button" class="btn" ng-click="moveItems(item)">Move to Items</button>
+			<button type="button" class="btn" ng-click="movePickup(item)">Move to Pickup</button>
+			<button type="button" class="btn" ng-click="moveArchive(item)">Archive</button>
+          </li>
+      </ul>
+    </div>
 		
     </div>
 

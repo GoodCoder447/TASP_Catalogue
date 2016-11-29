@@ -94,9 +94,9 @@ var getList = function(db, coll,data, callback) {
 //mongodb get public bucketlist function
 var browsePublic = function(db, search, searchBy, data,callback) {
 	if (searchBy == 'user') {
-		var cursor = db.collection('public').find({user : new RegExp(search)});
+		var cursor = db.collection('items').find({user : new RegExp(search)});
 	}else {
-		var cursor = db.collection('public').find({name: new RegExp(search)});
+		var cursor = db.collection('items').find({name: new RegExp(search)});
 	}
 	cursor.each(function(err,doc) {
 		assert.equal(err,null);
@@ -125,43 +125,11 @@ io.on('connection', function(socket) {
 	//end browse
 	
 	
-	//profile data
-	socket.on('changePass', function(opass,pass,user) {
-		MongoClient.connect(url, function(err, db) {
-			var data = [];
-			assert.equal(null, err);
-			findUser(db, user,data,function() {
-				db.close();
-				if (data[0]['password'] == crypto.createHash('md5').update(opass+data[0]['salt']).digest("hex")) {
-					MongoClient.connect(url, function(err, db) {
-						assert.equal(null,err);
-						var newsalt = randomstring.generate( {
-							length: 16,
-							charset: 'alphabetic'
-						});
-						db.collection('users').updateOne(
-						{ "userName" : user },
-						{
-								$set: {	password: crypto.createHash('md5').update(pass+newsalt).digest("hex"),
-									salt: newsalt
-								}
-						});
-						db.close();
-						
-					});
-					socket.emit('cPassRes', "Your Password has changed.");
-				}else {
-					socket.emit('cPassRes', 'The Old Password is incorrect!');
-				}
-			});
-		});
-	});
-	
 	
 	//items
     
     //move from items to other tables **********
-	socket.on('makePublic', function(item) {
+	socket.on('moveDiffTable', function(item) {
 		MongoClient.connect(url, function(err, db) {
 			assert.equal(null, err);
 			var collection = db.collection('public');
@@ -169,7 +137,7 @@ io.on('connection', function(socket) {
 			db.close();
 		});
 	});
-	//add item to user bucketlist
+	//add item to user list
 	socket.on('addItem', function(item) {
 		MongoClient.connect(url, function(err, db) {
 			assert.equal(null, err);
@@ -178,19 +146,19 @@ io.on('connection', function(socket) {
 			db.close();
 		});
 	});
-	//edit item of user bucketlist
+	//edit item of user list
 	socket.on('editItem',function(item) {
 		MongoClient.connect(url, function(err, db) {
 			assert.equal(null, err);
 			db.collection(item.table).updateOne(
-			{ "name" : item.name },
+			{ "_id" : new mongodb.ObjectId(item.name._id) },
 			{
-				$set: { "complete": item.bool}
+				$set: { "table": item.newtable}
 			});
 			db.close();
 		});
 	});
-	//remove item from user bucketlist
+	//remove item from list
 	socket.on('removeItem', function(item) {
 		MongoClient.connect(url, function(err,db) {
 			assert.equal(null,err);
@@ -200,7 +168,9 @@ io.on('connection', function(socket) {
 			db.close();
 		});
 	});
-	//get whole bucketlist
+    
+    
+	//get whole list
 	socket.on('getList', function(list) {
 		var data = [];
 		MongoClient.connect(url, function(err, db) {
@@ -268,6 +238,38 @@ io.on('connection', function(socket) {
 			
 	});	
 	//end signup
+    
+    //profile data
+	socket.on('changePass', function(opass,pass,user) {
+		MongoClient.connect(url, function(err, db) {
+			var data = [];
+			assert.equal(null, err);
+			findUser(db, user,data,function() {
+				db.close();
+				if (data[0]['password'] == crypto.createHash('md5').update(opass+data[0]['salt']).digest("hex")) {
+					MongoClient.connect(url, function(err, db) {
+						assert.equal(null,err);
+						var newsalt = randomstring.generate( {
+							length: 16,
+							charset: 'alphabetic'
+						});
+						db.collection('users').updateOne(
+						{ "userName" : user },
+						{
+								$set: {	password: crypto.createHash('md5').update(pass+newsalt).digest("hex"),
+									salt: newsalt
+								}
+						});
+						db.close();
+						
+					});
+					socket.emit('cPassRes', "Your Password has changed.");
+				}else {
+					socket.emit('cPassRes', 'The Old Password is incorrect!');
+				}
+			});
+		});
+	});
 	
 });
 
