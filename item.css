@@ -86,7 +86,7 @@
 	padding-left: 0px;
 	padding-right: 0px;
 	max-width: 100%;
-	margin-top: 25px;
+	margin-top: 15px;
 }
 
 /*********************************************
@@ -94,7 +94,6 @@
 *********************************************/
 
 .service1-items {
-	padding-left: 50px;
 	float: left;
 	position: relative;
 	overflow: hidden;
