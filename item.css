@@ -20,7 +20,9 @@
 
 .product{
 	border: 1px solid #dddddd;
-	height: 321px;
+	height: 320px;
+	margin-top: 15px;
+	margin-bottom: 15px;
 }
 
 .product>img{
@@ -51,7 +53,7 @@
 }
 
 .product-info{
-		margin-top: 50px;
+	margin-top: 50px;
 }
 
 /*********************************************
@@ -90,7 +92,7 @@
 *********************************************/
 
 .service1-items {
-	padding: 0px 0 0px 0;
+	padding-left: 50px;
 	float: left;
 	position: relative;
 	overflow: hidden;
@@ -105,7 +107,7 @@
 	display: block;
 	float: left;
 	position: relative;
-	padding-right: 20px;
+
 	border-right: 1px solid #DDD;
 	border-top: 1px solid #DDD;
 	border-bottom: 1px solid #DDD;
@@ -127,7 +129,8 @@
 }
 
 .service-image-left {
-	padding-right: 50px;
+	padding-right: 20px;
+	padding-left: 20px;
 }
 
 .service-image-right {
@@ -135,5 +138,6 @@
 }
 
 .service-image-left > center > img,.service-image-right > center > img{
-	max-height: 155px;
+	max-height: 250px;
+	max-width: 193px;
 }
