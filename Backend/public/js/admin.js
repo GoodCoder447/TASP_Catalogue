@@ -47,6 +47,9 @@ socket.on('cPassRes', function(result) {
 	});
 });
     
+$scope.editItem = function(item) {
+    window.location.href = 'itemadmin.html?id='+item._id;
+}
     
 //add item to list
 $scope.addItem = function() {
@@ -58,7 +61,16 @@ $scope.addItem = function() {
         category: document.getElementById("category").value,
         tags: 'temp',
         pay_method: '',
-        paid_by: '',
+        paid_by: {
+            firstname: '',
+            lastname: '',
+            email: '',
+            phone: '',
+            address: '',
+            city: '',
+            state: '',
+            zip: ''
+        },
         paid: false,
 		table: 'items'
 	}

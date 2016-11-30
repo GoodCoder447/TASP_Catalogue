@@ -91,13 +91,9 @@ var getList = function(db, coll,data, callback) {
 	});
 }
 
-//mongodb get public bucketlist function
-var browsePublic = function(db, search, searchBy, data,callback) {
-	if (searchBy == 'user') {
-		var cursor = db.collection('items').find({user : new RegExp(search)});
-	}else {
-		var cursor = db.collection('items').find({name: new RegExp(search)});
-	}
+//mongodb get list function
+var getCategory = function(db, coll,data, callback) {
+	var cursor = db.collection('items').find({category: coll});
 	cursor.each(function(err,doc) {
 		assert.equal(err,null);
 		if (doc != null) {
@@ -108,14 +104,30 @@ var browsePublic = function(db, search, searchBy, data,callback) {
 	});
 }
 
+
+
+//mongodb get public bucketlist function
+var browsePublic = function(db, search, data,callback) {
+	var cursor = db.collection('items').find({desc: new RegExp(search)});
+	cursor.each(function(err,doc) {
+		assert.equal(err,null);
+		if (doc != null) {
+			data.push(doc);
+		}else {
+			callback();
+		}
+	});
+}
+
+
 //gets data from the index.html and functions accordingly
 io.on('connection', function(socket) {
 	//browse data
-	socket.on('searchThis', function(search, searchBy) {
+	socket.on('searchThis', function(search) {
 		MongoClient.connect(url, function(err,db) {
 			var data = [];
 			assert.equal(null,err);
-			browsePublic(db,search,searchBy,data,function() {
+			browsePublic(db,search,data,function() {
 				db.close();
 				socket.emit('browseRes',data);
 			})
@@ -205,6 +217,35 @@ io.on('connection', function(socket) {
 			getList(db, list,data,function() {
 				db.close();
 				socket.emit('receiveArchive',data);
+			});
+		});
+		
+	});
+    
+    //get item
+	socket.on('getItem', function(item) {
+		var data = [];
+		MongoClient.connect(url, function(err, db) {
+			assert.equal(null, err);
+            db.collection('items').findOne({_id: new mongodb.ObjectId(item)}, function(error, ret) {
+               assert.equal(null, error);
+                socket.emit('receiveItem',ret);
+                db.close();
+            });
+			
+		});
+		
+	});
+    
+    //get item
+	socket.on('getCategoryItems', function(item) {
+		var data = [];
+		MongoClient.connect(url, function(err, db) {
+			assert.equal(null, err);
+			getCategory(db, item,data,function() {
+                socket.emit('receiveCategoryItems',data);
+				db.close();
+				
 			});
 		});
 		

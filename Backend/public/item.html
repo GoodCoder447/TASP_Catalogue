@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Browse Items</title>
+    <title>Item Page</title>
 	
 	<link href="css/browseStyles.css" rel="stylesheet">
 
@@ -33,7 +33,7 @@
 
 </head>
 
-<body ng-app='app'>
+<body ng-app="app">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
@@ -55,9 +55,12 @@
                     <li>
                         <a href="browse.html">Browse</a>
                     </li>
-                    
+                   
                     <li>
                         <a href="about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="http://localhost:3000/logout">Log Out</a>
                     </li>
                 </ul>
             </div>
@@ -68,87 +71,89 @@
 
 
     <!-- Header -->
-    <div class="top">
-        <div class="container"  ng-controller='results'>
+    <div class="top" ng-controller="profile">
+        <div class="container">
 
             <div class="row">
                 <div>
                     
-                    <h1>Browse Lists</h1>
-                    <hr class="intro-divider">
-                    <form id="browse" class="search form-inline" ng-submit="submit()" role="form">
-						<input class="browse" type="text" id="search" ng-model="text" name="search" placeholder="Browse...">
-						
-						<div class ="wrapper">
-                        <button type="submit" class="btn btn-success" ng-click="search()" id="submit" value="Submit">Browse</button>
-                        </div>
-                        <br>
-						
-					</form>	
-                   
-                </div>
-				
-            </div>
-			
-				<ul class="col-sm-4 " ng-repeat="item in list" >
-					<li id="this">
-                        <span> {{item.desc}} </span>
-                        <span> {{item.price}} </span>
-                        <span> {{item.category}} </span>
-                        <span> {{item.table}} </span>
-                        <button type="button" class="btn" ng-click="viewItem(item)">View Item</button>
-                    </li>
-				</ul>
-			
-        </div>
+                    <h1>Item Page</h1>
+                    <hr class="intro-divider">        
+   
+   
 
+				<div class="col-sm-4"></div>
+
+			
+		
+		</div>
+		</div>
+          
+        </div>
+    <div>
+      
+          
+        <ul>
+          <li> 
+            <span> {{items.desc}} </span>
+            <span> {{items.price}} </span>
+            <span> {{items.category}} </span>
+            <span> {{items.table}} </span>
+            
+          </li>
+      </ul>
+    </div>
+        
+
+        
+    
+		
     </div>
 
 	
   
-    <!-- /.banner -->
 
-    <!-- Footer -->
-<!--
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="list-inline">
-                        <li>
-                            <a href="#">Home</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="#about">About</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="#services">Services</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="#contact">Contact</a>
-                        </li>
-                    </ul>
-                    <p class="copyright text-muted small">Copyright &copy; Your Company 2014. All Rights Reserved</p>
-                </div>
-            </div>
-        </div>
-    </footer>
--->
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
 	
-	<!-- AngularJS -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-	
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-	
-	<script src="socket.io/socket.io.js"></script>
-	<script src="js/browseScript.js"></script>
 
 </body>
+    
+    
+<style>
+    body{
+    
+    }
+    .centered-form{
+        margin-top: 30px;
+    }
+
+    .centered-form .panel{
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+    }
+</style>
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	<script src="socket.io/socket.io.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    
+	<script src="js/item.js"></script>
+	
+	<script>
+$(function () {
+    $(":file").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+});
+
+function imageIsLoaded(e) {
+    $('#img-responsive').attr('src',e.target.result);
+  };
+</script>
 
 </html>
