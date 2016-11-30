@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="loggedin.html">Home</a>
+                <a class="navbar-brand topnav" href="index.html">Home</a>
                 
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -56,9 +56,6 @@
                         <a href="browse.html">Browse</a>
                     </li>
                    
-                    <li>
-                        <a href="TASPAdminPage.html">Admin Page</a>
-                    </li>
                     <li>
                         <a href="about.html">About</a>
                     </li>
@@ -190,6 +187,26 @@
 			<button type="button" class="btn" ng-click="moveItems(item)">Move to Items</button>
 			<button type="button" class="btn" ng-click="movePickup(item)">Move to Pickup</button>
 			<button type="button" class="btn" ng-click="moveArchive(item)">Archive</button>
+          </li>
+      </ul>
+    </div>
+        
+        
+    <div>
+        <h2 id="bucketList">Archive List</h2>
+      
+        <ul ng-repeat="item1 in archive">
+          <li> 
+            <span> {{item1.desc}} </span>
+            <span> {{item1.price}} </span>
+            <span> {{item1.date_added}} </span>
+            <span> {{item1.category}} </span>
+            <span> {{item1.table}} </span>
+            <span> {{item1.pay_method}} </span>
+            <span> {{item1.paid_by}} </span>
+            <button type="button" class="btn btn-danger" ng-click="removeArchiveItem(item1)"><span class="glyphicon glyphicon-remove"></button>
+			<button type="button" class="btn" ng-click="moveToItems(item1)">Restore</button>
+			
           </li>
       </ul>
     </div>

@@ -132,8 +132,21 @@ io.on('connection', function(socket) {
 	socket.on('moveDiffTable', function(item) {
 		MongoClient.connect(url, function(err, db) {
 			assert.equal(null, err);
-			var collection = db.collection('public');
-			collection.insert(item);
+			var collection = db.collection(item.table);
+			collection.insert(
+                {"_id" : new mongodb.ObjectId(item.name._id),
+                "desc" : item.name.desc,
+                "extra_desc" : item.name.extra_desc,
+                "price" : item.name.price,
+                "date_added" : item.name.date_added,
+                "category" : item.name.category,
+                "tags" : item.name.tags,
+                "pay_method" : item.name.pay_method,
+                "paid_by" : item.name.paid_by,
+                "paid" : item.name.paid,
+                "table" : item.name.table
+                }
+            );
 			db.close();
 		});
 	});
@@ -153,7 +166,8 @@ io.on('connection', function(socket) {
 			db.collection(item.table).updateOne(
 			{ "_id" : new mongodb.ObjectId(item.name._id) },
 			{
-				$set: { "table": item.newtable}
+				$set: { "table": item.newtable,
+                        "paid": item.paid }
 			});
 			db.close();
 		});
@@ -178,6 +192,19 @@ io.on('connection', function(socket) {
 			getList(db, list,data,function() {
 				db.close();
 				socket.emit('receiveList',data);
+			});
+		});
+		
+	});
+    
+    //get whole archive
+	socket.on('getArchive', function(list) {
+		var data = [];
+		MongoClient.connect(url, function(err, db) {
+			assert.equal(null, err);
+			getList(db, list,data,function() {
+				db.close();
+				socket.emit('receiveArchive',data);
 			});
 		});
 		
