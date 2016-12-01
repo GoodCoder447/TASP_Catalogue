@@ -1,22 +1,9 @@
-/*********************************************
-    			Call Bootstrap
-*********************************************/
-
 @import url("bootstrap/bootstrap.min.css");
 @import url("bootstrap-override.css");
 @import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
-
-/*********************************************
-        		Theme Elements
-*********************************************/
-
 .gold{
 	color: #e8e8e8;
 }
-
-/*********************************************
-					PRODUCTS
-*********************************************/
 
 .product{
 	border: 1px solid #dddddd;
@@ -57,10 +44,6 @@
 	margin-top: 25px;
 }
 
-/*********************************************
-					VIEW
-*********************************************/
-
 .content-wrapper {
 	max-width: 1140px;
 	background: #ffffff;
@@ -88,10 +71,6 @@
 	max-width: 100%;
 	margin-top: 15px;
 }
-
-/*********************************************
-				ITEM 
-*********************************************/
 
 .service1-items {
 	float: left;
