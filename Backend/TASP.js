@@ -156,6 +156,7 @@ io.on('connection', function(socket) {
                 "pay_method" : item.name.pay_method,
                 "paid_by" : item.name.paid_by,
                 "paid" : item.name.paid,
+                "featured" : item.name.featured,
                 "table" : item.name.table
                 }
             );
@@ -195,6 +196,31 @@ io.on('connection', function(socket) {
 		});
 	});
     
+    //edit item for feature
+	socket.on('itemFeature',function(item) {
+		MongoClient.connect(url, function(err, db) {
+			assert.equal(null, err);
+			db.collection('items').updateOne(
+			{ "_id" : new mongodb.ObjectId(item.name._id) },
+			{
+				$set: { "featured": item.featured }
+			});
+			db.close();
+		});
+	});
+    
+    //edit item for unfeature
+	socket.on('itemUnfeature',function(item) {
+		MongoClient.connect(url, function(err, db) {
+			assert.equal(null, err);
+			db.collection('items').updateOne(
+			{ "_id" : new mongodb.ObjectId(item.name._id) },
+			{
+				$set: { "featured": item.featured }
+			});
+			db.close();
+		});
+	});
     
 	//get whole list
 	socket.on('getList', function(list) {

@@ -38,10 +38,24 @@ $scope.editItem = function() {
 	socket.emit('editItem',data)
 	location.reload();
 }    
-    
+ 
+$scope.addTag = function() {
+    var data = {
+        
+    }
+    socket.emit('addTag', data);
+    getitem();
+}
+
+$scope.removeTag = function(tag) {
+    var data = {
+        
+    }
+    socket.emit('removeTag', data);
+    getitem();
+}
     
 socket.on('receiveItem',function(list){
-    console.log(list);
 	$scope.$apply(function() {
 		$scope.items = list;
         $scope.desc = list.desc;

@@ -114,7 +114,20 @@
                       </tr>
 					  <tr>
                         <td>Tags:</td>
-                        <td><input type="text" ng-value="tags" id="tags"></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                          <td><p>
+        <label for="new-task">Add Tag</label><input name= "tag" id="tag" type="text" ng-required>
+          <button type="button" class="btn btn-success" ng-click="addTag()"><span class="glyphicon glyphicon-plus"></button>
+      </p></td>
+                          <td><ul ng-repeat="tag in tags">
+          <li> 
+            <span> {{tag.name}} </span>
+            <button type="button" class="btn btn-danger" ng-click="removeItem(tag)"><span class="glyphicon glyphicon-remove"></button>
+            
+          </li>
+      </ul></td>
                       </tr>
 					  <tr>
                         <td>Payment Method:</td>

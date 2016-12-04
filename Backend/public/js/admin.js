@@ -59,7 +59,7 @@ $scope.addItem = function() {
         price: document.getElementById("price").value,
         date_added: new Date(), 
         category: document.getElementById("category").value,
-        tags: 'temp',
+        tags: [],
         pay_method: '',
         paid_by: {
             firstname: '',
@@ -72,11 +72,31 @@ $scope.addItem = function() {
             zip: ''
         },
         paid: false,
+        featured: false,
 		table: 'items'
 	}
 	socket.emit('addItem',item);
 	getitems();
 }
+
+$scope.feature = function(item) {
+    var item = {
+        featured: true,
+        name: item
+    }
+    socket.emit('itemFeature', item);
+    getitems();
+}
+
+$scope.unfeature = function(item) {
+    var item = {
+        featured: false,
+        name: item
+    }
+    socket.emit('itemUnfeature', item);
+    getitems();
+}
+
 //move item in list
 $scope.movePickup = function(item) {
 	var item = {

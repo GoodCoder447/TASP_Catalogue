@@ -151,6 +151,8 @@
 			<button type="button" class="btn" ng-click="movePickup(item)">Move to Pickup</button>
 			<button type="button" class="btn" ng-click="moveSold(item)">Move to Sold</button>
 			<button type="button" class="btn" ng-click="moveArchive(item)">Archive</button>
+			<button type="button" class="btn" ng-show="item.featured == false" ng-click="feature(item)">Feature</button>
+			<button type="button" class="btn" ng-show="item.featured == true" ng-click="unfeature(item)">Unfeature</button>
           </li>
       </ul>
     </div>
@@ -169,6 +171,8 @@
 			<button type="button" class="btn" ng-click="moveItems(item)">Move to Items</button>
 			<button type="button" class="btn" ng-click="moveSold(item)">Move to Sold</button>
 			<button type="button" class="btn" ng-click="moveArchive(item)">Archive</button>
+            <button type="button" class="btn" ng-show="item.featured == true" ng-click="feature(item)">Feature</button>
+			<button type="button" class="btn" ng-show="item.featured == true" ng-click="unfeature(item)">Unfeature</button>
           </li>
       </ul>
     </div>
@@ -187,6 +191,8 @@
 			<button type="button" class="btn" ng-click="moveItems(item)">Move to Items</button>
 			<button type="button" class="btn" ng-click="movePickup(item)">Move to Pickup</button>
 			<button type="button" class="btn" ng-click="moveArchive(item)">Archive</button>
+            <button type="button" class="btn" ng-show="item.featured == true" ng-click="feature(item)">Feature</button>
+			<button type="button" class="btn" ng-show="item.featured == true" ng-click="unfeature(item)">Unfeature</button>
           </li>
       </ul>
     </div>
