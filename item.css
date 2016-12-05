@@ -1,26 +1,15 @@
-/*********************************************
-    			Call Bootstrap
-*********************************************/
-
 @import url("bootstrap/bootstrap.min.css");
 @import url("bootstrap-override.css");
 @import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
-
-/*********************************************
-        		Theme Elements
-*********************************************/
-
 .gold{
 	color: #e8e8e8;
 }
 
-/*********************************************
-					PRODUCTS
-*********************************************/
-
 .product{
 	border: 1px solid #dddddd;
-	height: 321px;
+	height: 320px;
+	margin-top: 15px;
+	margin-bottom: 15px;
 }
 
 .product>img{
@@ -34,6 +23,7 @@
 
 .product-title{
 	font-size: 20px;
+	padding-top: 15px;
 }
 
 .product-desc{
@@ -51,12 +41,8 @@
 }
 
 .product-info{
-		margin-top: 50px;
+	margin-top: 25px;
 }
-
-/*********************************************
-					VIEW
-*********************************************/
 
 .content-wrapper {
 	max-width: 1140px;
@@ -83,14 +69,10 @@
 	padding-left: 0px;
 	padding-right: 0px;
 	max-width: 100%;
+	margin-top: 15px;
 }
 
-/*********************************************
-				ITEM 
-*********************************************/
-
 .service1-items {
-	padding: 0px 0 0px 0;
 	float: left;
 	position: relative;
 	overflow: hidden;
@@ -105,7 +87,7 @@
 	display: block;
 	float: left;
 	position: relative;
-	padding-right: 20px;
+
 	border-right: 1px solid #DDD;
 	border-top: 1px solid #DDD;
 	border-bottom: 1px solid #DDD;
@@ -127,7 +109,8 @@
 }
 
 .service-image-left {
-	padding-right: 50px;
+	padding-right: 20px;
+	padding-left: 20px;
 }
 
 .service-image-right {
@@ -135,5 +118,6 @@
 }
 
 .service-image-left > center > img,.service-image-right > center > img{
-	max-height: 155px;
+	max-height: 250px;
+	max-width: 193px;
 }

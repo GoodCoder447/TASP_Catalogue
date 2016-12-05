@@ -78,10 +78,7 @@
                     <hr class="intro-divider">
                     <form id="browse" class="search form-inline" ng-submit="submit()" role="form">
 						<input class="browse" type="text" id="search" ng-model="text" name="search" placeholder="Browse...">
-						<select id="searchBy">
-							<option value="name">Item</option>
-							<option value="user">User</option>
-						</select>
+						
 						<div class ="wrapper">
                         <button type="submit" class="btn btn-success" ng-click="search()" id="submit" value="Submit">Browse</button>
                         </div>
@@ -94,7 +91,13 @@
             </div>
 			
 				<ul class="col-sm-4 " ng-repeat="item in list" >
-					<li id="this">{{item.user}}: {{item.name}} </li>
+					<li id="this">
+                        <span> {{item.desc}} </span>
+                        <span> {{item.price}} </span>
+                        <span> {{item.category}} </span>
+                        <span> {{item.table}} </span>
+                        <button type="button" class="btn" ng-click="viewItem(item)">View Item</button>
+                    </li>
 				</ul>
 			
         </div>

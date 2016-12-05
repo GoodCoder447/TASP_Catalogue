@@ -1,0 +1,9 @@
+@import url("bootstrap/bootstrap.min.css");
+@import url("bootstrap-override.css");
+@import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
+
+.col-sm-4 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+

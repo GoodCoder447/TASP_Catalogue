@@ -47,24 +47,57 @@ socket.on('cPassRes', function(result) {
 	});
 });
     
+$scope.editItem = function(item) {
+    window.location.href = 'itemadmin.html?id='+item._id;
+}
     
 //add item to list
 $scope.addItem = function() {
 	var item = {
+        photo: "",
 		desc: document.getElementById("desc").value,
         extra_desc: '',
         price: document.getElementById("price").value,
         date_added: new Date(), 
         category: document.getElementById("category").value,
-        tags: 'temp',
+        tags: [],
         pay_method: '',
-        paid_by: '',
+        paid_by: {
+            firstname: '',
+            lastname: '',
+            email: '',
+            phone: '',
+            address: '',
+            city: '',
+            state: '',
+            zip: ''
+        },
         paid: false,
+        featured: false,
 		table: 'items'
 	}
 	socket.emit('addItem',item);
 	getitems();
 }
+
+$scope.feature = function(item) {
+    var item = {
+        featured: true,
+        name: item
+    }
+    socket.emit('itemFeature', item);
+    getitems();
+}
+
+$scope.unfeature = function(item) {
+    var item = {
+        featured: false,
+        name: item
+    }
+    socket.emit('itemUnfeature', item);
+    getitems();
+}
+
 //move item in list
 $scope.movePickup = function(item) {
 	var item = {

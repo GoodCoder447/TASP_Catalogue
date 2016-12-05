@@ -10,6 +10,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var crypto = require('crypto');
 var randomstring = require("randomstring");
+var multer = require('multer');
+var multiparty = require('connect-multiparty');
 
 //database modules
 var Db = require('mongodb').Db,
@@ -34,15 +36,30 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
+
+
 //app.use(express.static(__dirname + '/public'));
 //allow usage of static files for external css and js
 app.use(express.static(path.join(__dirname, 'public')));
 
+var storage = multer.diskStorage({
+  destination: 'public/itemimages/',
+  filename: function (req, file, cb) {
+    cb(null, file.originalname.replace(path.extname(file.originalname), "") + '-' + Date.now() + path.extname(file.originalname))
+  }
+})
+ 
+var upload = multer({ storage: storage })
+var filename = ''; 
 
-// server route handler
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+ 
+app.post('/savedata', upload.single('file'), function(req,res,next){
+    filename = req.file.filename;
+    res.send(req.file.filename);
+});
 
+app.get('/fileuploadname', function(req,res) {
+   res.send(filename); 
 });
 
 //get page for getting user logged in via cookies
@@ -91,13 +108,9 @@ var getList = function(db, coll,data, callback) {
 	});
 }
 
-//mongodb get public bucketlist function
-var browsePublic = function(db, search, searchBy, data,callback) {
-	if (searchBy == 'user') {
-		var cursor = db.collection('items').find({user : new RegExp(search)});
-	}else {
-		var cursor = db.collection('items').find({name: new RegExp(search)});
-	}
+//mongodb get list function
+var getCategory = function(db, coll,data, callback) {
+	var cursor = db.collection('items').find({category: coll});
 	cursor.each(function(err,doc) {
 		assert.equal(err,null);
 		if (doc != null) {
@@ -108,14 +121,30 @@ var browsePublic = function(db, search, searchBy, data,callback) {
 	});
 }
 
+
+
+//mongodb get public bucketlist function
+var browsePublic = function(db, search, data,callback) {
+	var cursor = db.collection('items').find({desc: new RegExp(search)});
+	cursor.each(function(err,doc) {
+		assert.equal(err,null);
+		if (doc != null) {
+			data.push(doc);
+		}else {
+			callback();
+		}
+	});
+}
+
+
 //gets data from the index.html and functions accordingly
 io.on('connection', function(socket) {
 	//browse data
-	socket.on('searchThis', function(search, searchBy) {
+	socket.on('searchThis', function(search) {
 		MongoClient.connect(url, function(err,db) {
 			var data = [];
 			assert.equal(null,err);
-			browsePublic(db,search,searchBy,data,function() {
+			browsePublic(db,search,data,function() {
 				db.close();
 				socket.emit('browseRes',data);
 			})
@@ -144,13 +173,14 @@ io.on('connection', function(socket) {
                 "pay_method" : item.name.pay_method,
                 "paid_by" : item.name.paid_by,
                 "paid" : item.name.paid,
+                "featured" : item.name.featured,
                 "table" : item.name.table
                 }
             );
 			db.close();
 		});
 	});
-	//add item to user list
+	//add item
 	socket.on('addItem', function(item) {
 		MongoClient.connect(url, function(err, db) {
 			assert.equal(null, err);
@@ -159,7 +189,7 @@ io.on('connection', function(socket) {
 			db.close();
 		});
 	});
-	//edit item of user list
+	//edit item
 	socket.on('editItem',function(item) {
 		MongoClient.connect(url, function(err, db) {
 			assert.equal(null, err);
@@ -168,6 +198,51 @@ io.on('connection', function(socket) {
 			{
 				$set: { "table": item.newtable,
                         "paid": item.paid }
+			});
+			db.close();
+		});
+	});
+    
+    socket.on('updatePhoto',function(item) {
+        console.log(item.photo);
+		MongoClient.connect(url, function(err, db) {
+			assert.equal(null, err);
+			db.collection('items').updateOne(
+			{ "_id" : new mongodb.ObjectId(item.id) },
+			{
+				$set: { "photo": item.photo }
+			});
+			db.close();
+		});
+	});
+    
+    //edit item info
+	socket.on('editItemInfo',function(item) {
+		MongoClient.connect(url, function(err, db) {
+			assert.equal(null, err);
+			db.collection('items').updateOne(
+			{ "_id" : new mongodb.ObjectId(item.id) },
+			{
+				$set: { "desc": item.desc,
+                        "extra_desc": item.extra_desc,
+                        "price": item.price,
+                        "category": item.category,
+                        "pay_method": item.pay_method,
+                        "paid_by": item.paid_by
+                      }
+			});
+			db.close();
+		});
+	});
+    
+    //update tag of item
+	socket.on('updateTags',function(item) {
+		MongoClient.connect(url, function(err, db) {
+			assert.equal(null, err);
+			db.collection('items').updateOne(
+			{ "_id" : new mongodb.ObjectId(item.id) },
+			{
+				$set: { "tags": item.tags }
 			});
 			db.close();
 		});
@@ -183,6 +258,31 @@ io.on('connection', function(socket) {
 		});
 	});
     
+    //edit item for feature
+	socket.on('itemFeature',function(item) {
+		MongoClient.connect(url, function(err, db) {
+			assert.equal(null, err);
+			db.collection('items').updateOne(
+			{ "_id" : new mongodb.ObjectId(item.name._id) },
+			{
+				$set: { "featured": item.featured }
+			});
+			db.close();
+		});
+	});
+    
+    //edit item for unfeature
+	socket.on('itemUnfeature',function(item) {
+		MongoClient.connect(url, function(err, db) {
+			assert.equal(null, err);
+			db.collection('items').updateOne(
+			{ "_id" : new mongodb.ObjectId(item.name._id) },
+			{
+				$set: { "featured": item.featured }
+			});
+			db.close();
+		});
+	});
     
 	//get whole list
 	socket.on('getList', function(list) {
@@ -209,8 +309,38 @@ io.on('connection', function(socket) {
 		});
 		
 	});
+    
+    //get item
+	socket.on('getItem', function(item) {
+		var data = [];
+		MongoClient.connect(url, function(err, db) {
+			assert.equal(null, err);
+            db.collection('items').findOne({_id: new mongodb.ObjectId(item)}, function(error, ret) {
+               assert.equal(null, error);
+                socket.emit('receiveItem',ret);
+                db.close();
+            });
+			
+		});
+		
+	});
+    
+    //get item
+	socket.on('getCategoryItems', function(item) {
+		var data = [];
+		MongoClient.connect(url, function(err, db) {
+			assert.equal(null, err);
+			getCategory(db, item,data,function() {
+                socket.emit('receiveCategoryItems',data);
+				db.close();
+				
+			});
+		});
+		
+	});
+    
 	
-	//end bucketlist
+	//end item socket code
 	
 	
 	//login
