@@ -1,0 +1,37 @@
+.leftColumn {
+  width: 25%;
+  height: 100%;
+}
+
+.rightColumn {
+  width: 75%;
+  height: 100%;
+}
+
+.col-sm-4 {
+  padding-top: 15px;
+}
+
+.checkbox1 {
+  margin-left: 100px;
+}
+
+.thumbnail {
+    padding: 0;
+    padding-top: 5px;
+}
+
+.thumbnail img {
+    width: 100%;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
+}
+
+
+#TaspLogo {
+  width: 152px;
+  height: auto;
+}

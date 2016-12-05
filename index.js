@@ -1,6 +1,5 @@
 var categories = ["Appliances", "Clothing", "Electronics", "Furniture", "Home", "Jewelry", "Outdoor", "Toys"]
 var categoryLength = categories.length;
-console.log("gi");
 
 $(document).ready(function() {
 	var innerHtml = "";
@@ -8,23 +7,11 @@ $(document).ready(function() {
 		innerHtml += '<li class="nav-item active">'
 		innerHtml += '<a class="nav-link" href="';
 
-		if (categories[i] == "Furniture") {
-			innerHtml += 'Furniture.html">'
-		} else {
-			innerHtml += '#' + '">';
-		}
+		innerHtml += 'CategoryPage.html?category=' + categories[i] +'">';
 
 		innerHtml += categories[i] + '</a></li>';
-
-		// console.log(categories[i]);
 	}
-	console.log(innerHtml);
-	// innerHtml += 
 	$('#theHead').append(innerHtml);
-
-		// categories.each(function() {
-	// 	console.log($(this));
-	// })
 });
 
 
