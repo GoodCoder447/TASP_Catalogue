@@ -91,9 +91,15 @@
           
         </div>
         
- <div class=" col-md-9 col-lg-9 "> 
+ <div class=" col-md-9 col-lg-9 ">
+        <input type = "file" file-model = "myFile"/>
+   <button ng-click = "uploadFile()">Upload New Photo</button>
                   <table class="table table-user-information">
                     <tbody>
+                      <tr>
+                          <td>Photo:</td>
+                          <td><img ng-src="itemimages/{{photo}}"/></td>
+                      </tr>
                       <tr>
                         <td>Name:</td>
                         <td><input type="text" ng-value="desc" id="desc"></td>
@@ -123,8 +129,8 @@
       </p></td>
                           <td><ul ng-repeat="tag in tags">
           <li> 
-            <span> {{tag.name}} </span>
-            <button type="button" class="btn btn-danger" ng-click="removeItem(tag)"><span class="glyphicon glyphicon-remove"></button>
+            <span> {{tag}} </span>
+            <button type="button" class="btn btn-danger" ng-click="removeTag(tag)"><span class="glyphicon glyphicon-remove"></button>
             
           </li>
       </ul></td>

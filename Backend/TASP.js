@@ -10,6 +10,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var crypto = require('crypto');
 var randomstring = require("randomstring");
+var multer = require('multer');
+var multiparty = require('connect-multiparty');
 
 //database modules
 var Db = require('mongodb').Db,
@@ -34,15 +36,30 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
+
+
 //app.use(express.static(__dirname + '/public'));
 //allow usage of static files for external css and js
 app.use(express.static(path.join(__dirname, 'public')));
 
+var storage = multer.diskStorage({
+  destination: 'public/itemimages/',
+  filename: function (req, file, cb) {
+    cb(null, file.originalname.replace(path.extname(file.originalname), "") + '-' + Date.now() + path.extname(file.originalname))
+  }
+})
+ 
+var upload = multer({ storage: storage })
+var filename = ''; 
 
-// server route handler
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+ 
+app.post('/savedata', upload.single('file'), function(req,res,next){
+    filename = req.file.filename;
+    res.send(req.file.filename);
+});
 
+app.get('/fileuploadname', function(req,res) {
+   res.send(filename); 
 });
 
 //get page for getting user logged in via cookies
@@ -163,7 +180,7 @@ io.on('connection', function(socket) {
 			db.close();
 		});
 	});
-	//add item to user list
+	//add item
 	socket.on('addItem', function(item) {
 		MongoClient.connect(url, function(err, db) {
 			assert.equal(null, err);
@@ -172,7 +189,7 @@ io.on('connection', function(socket) {
 			db.close();
 		});
 	});
-	//edit item of user list
+	//edit item
 	socket.on('editItem',function(item) {
 		MongoClient.connect(url, function(err, db) {
 			assert.equal(null, err);
@@ -181,6 +198,51 @@ io.on('connection', function(socket) {
 			{
 				$set: { "table": item.newtable,
                         "paid": item.paid }
+			});
+			db.close();
+		});
+	});
+    
+    socket.on('updatePhoto',function(item) {
+        console.log(item.photo);
+		MongoClient.connect(url, function(err, db) {
+			assert.equal(null, err);
+			db.collection('items').updateOne(
+			{ "_id" : new mongodb.ObjectId(item.id) },
+			{
+				$set: { "photo": item.photo }
+			});
+			db.close();
+		});
+	});
+    
+    //edit item info
+	socket.on('editItemInfo',function(item) {
+		MongoClient.connect(url, function(err, db) {
+			assert.equal(null, err);
+			db.collection('items').updateOne(
+			{ "_id" : new mongodb.ObjectId(item.id) },
+			{
+				$set: { "desc": item.desc,
+                        "extra_desc": item.extra_desc,
+                        "price": item.price,
+                        "category": item.category,
+                        "pay_method": item.pay_method,
+                        "paid_by": item.paid_by
+                      }
+			});
+			db.close();
+		});
+	});
+    
+    //update tag of item
+	socket.on('updateTags',function(item) {
+		MongoClient.connect(url, function(err, db) {
+			assert.equal(null, err);
+			db.collection('items').updateOne(
+			{ "_id" : new mongodb.ObjectId(item.id) },
+			{
+				$set: { "tags": item.tags }
 			});
 			db.close();
 		});
@@ -276,8 +338,9 @@ io.on('connection', function(socket) {
 		});
 		
 	});
+    
 	
-	//end bucketlist
+	//end item socket code
 	
 	
 	//login

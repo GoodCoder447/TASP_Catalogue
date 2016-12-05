@@ -54,6 +54,7 @@ $scope.editItem = function(item) {
 //add item to list
 $scope.addItem = function() {
 	var item = {
+        photo: "",
 		desc: document.getElementById("desc").value,
         extra_desc: '',
         price: document.getElementById("price").value,
