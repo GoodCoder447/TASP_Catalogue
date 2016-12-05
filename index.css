@@ -53,8 +53,7 @@ body {
 }
 
 .head {
-	background-image: url("https://upload.wikimedia.org/wikipedia/commons/e/e6/Grass_macro_high_resolution.jpg");
-	background-repeat: no-repeat;
+	
 	background-attachment:fixed;
 	background-size: cover;
 	background-position:center bottom;
