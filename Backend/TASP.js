@@ -164,6 +164,7 @@ io.on('connection', function(socket) {
 			var collection = db.collection(item.table);
 			collection.insert(
                 {"_id" : new mongodb.ObjectId(item.name._id),
+                "photo" : item.name.photo,
                 "desc" : item.name.desc,
                 "extra_desc" : item.name.extra_desc,
                 "price" : item.name.price,

@@ -92,7 +92,7 @@
 			
 				<ul class="col-sm-4 " ng-repeat="item in list | filter:{table:'items'}" >
 					<li id="this">
-                        <span><img ng-src="itemimages/{{photo}}"/></span>
+                        <span><img ng-src="itemimages/{{item.photo}}"/></span>
                         <span> {{item.desc}} </span>
                         <span> {{item.price}} </span>
                         <span> {{item.category}} </span>

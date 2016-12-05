@@ -35,6 +35,20 @@ var myApp = angular.module('app', []);
      }]);
  
      myApp.service('fileUpload', ['$http', function ($http) {
+         this.checkLoggedIn = function() {
+             //get user logged in
+    $http({
+      method: 'GET',
+      url: 'http://localhost:3000/user'
+    }).then(function successCallback(response) {
+        if (response.data == '') {
+            history.go(-1);
+        }
+    }, function errorCallback(response) {
+      console.log(response);
+    });
+         }
+         
         this.uploadFileToUrl = function(file, uploadUrl){
            var fd = new FormData();
            fd.append('file', file);
@@ -74,7 +88,7 @@ var myApp = angular.module('app', []);
            fileUpload.uploadFileToUrl(file, uploadUrl);
           location.reload();
         };
-         
+         fileUpload.checkLoggedIn();
          $scope.user = '';
 	var getitem = function() {
 		socket.emit('getItem', foo);

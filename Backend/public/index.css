@@ -1,0 +1,228 @@
+/*//////////// Start Base CSS ////////////*/
+
+.navbar{ /* assigning the top bar to the entire navbar div element 
+    text-align: center;
+    /*box-shadow: inset 0px 6px 0px #777;  initial gray color to the top bar    */
+    /*border: 1px solid black;*/
+    width: 100%;
+    /*margin-top: 20px;*/
+
+    padding-top: 0;
+    background: #205da3;
+    margin-bottom: 0;
+}
+.navbar-nav > li > a {
+	color: #fffaed;
+}
+.navbar-nav > li > a:hover,
+.navbar .navbar-nav > li > a:focus {
+    color: #fffaed;
+    background-color: #3368cc;
+    /*box-shadow: inset 0px 6px 0px #000;  switch to a darker color on hover */
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #fffaed;
+    background-color: #3368cc;
+    /*box-shadow: inset 0px 6px 0px #AAA;  switch to a lighter color for active element */
+}
+
+.nav {
+	margin:0;
+	padding: 0; /* Remove the default padding. */
+	list-style: none;
+	text-align: center;
+}
+
+.item {
+	max-width: 100%;
+	height: auto;
+	width: 100%;
+}
+
+form-line {
+	float: none;
+	padding: 2%;
+}
+
+/*//////////// Start Base CSS ////////////*/
+
+body {
+	background: #fffaed; 
+}
+
+.head {
+	background-image: url("https://upload.wikimedia.org/wikipedia/commons/e/e6/Grass_macro_high_resolution.jpg");
+	background-repeat: no-repeat;
+	background-attachment:fixed;
+	background-size: cover;
+	background-position:center bottom;
+	width: 100%;
+	padding:0;
+	margin:0;
+	background-color: #e8e8e8;
+	/*padding-top: 1em;*/
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  min-width: 100%;
+  /*padding: 1em;*/
+}
+
+#TaspLogo {
+	width: 152px;
+	height: auto;
+}
+
+/*#featured {
+	border: 1px solid black;
+}*/
+
+.frame {
+		background-color:#e8e8e8;
+
+}
+
+
+/*##############  Item Carousel  ##################*/
+.container { margin: 0 auto; }
+
+/* Example wrapper */
+.wrap {
+	position: relative;
+	margin: 0 0;
+}
+
+/* Frame */
+.frame {
+	height: 250px;
+	line-height: 250px;
+	overflow: hidden;
+}
+.frame ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	font-size: 50px;
+}
+.frame ul li {
+	float: left;
+	width: 227px;
+	height: 100%;
+	margin: 0 1px 0 0;
+	padding: 0;
+	background: #333;
+	color: #ddd;
+	text-align: center;
+	cursor: pointer;
+}
+.frame ul li.active {
+	color: #fff;
+	background: #a03232;
+}
+
+/* Scrollbar */
+.scrollbar {
+	margin: 0 0 1em 0;
+	height: 2px;
+	background: #ccc;
+	line-height: 0;
+}
+.scrollbar .handle {
+	width: 100px;
+	height: 100%;
+	background: #292a33;
+	cursor: pointer;
+}
+.scrollbar .handle .mousearea {
+	position: absolute;
+	top: -9px;
+	left: 0;
+	width: 100%;
+	height: 20px;
+}
+
+/* Pages */
+.pages {
+	list-style: none;
+	margin: 20px 0;
+	padding: 0;
+	text-align: center;
+}
+.pages li {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	margin: 0 4px;
+	text-indent: -999px;
+	border-radius: 10px;
+	cursor: pointer;
+	overflow: hidden;
+	background: #fff;
+	box-shadow: inset 0 0 0 1px rgba(0,0,0,.2);
+}
+.pages li:hover {
+	background: #aaa;
+}
+.pages li.active {
+	background: #666;
+}
+
+/* Controls */
+.controls { margin: 25px 0; text-align: center; }
+
+/* One Item Per Frame example*/
+.oneperframe { height: 300px; line-height: 300px; }
+.oneperframe ul li { width: 1140px; }
+.oneperframe ul li.active { background: #333; }
+
+/* Crazy example */
+.crazy ul li:nth-child(2n) { width: 100px; margin: 0 4px 0 20px; }
+.crazy ul li:nth-child(3n) { width: 300px; margin: 0 10px 0 5px; }
+.crazy ul li:nth-child(4n) { width: 400px; margin: 0 30px 0 2px; }
+
+/*.carouselImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 500px;
+  max-width: none;
+}*/
+
+
+/*.slider-size {
+	height: 1200px;
+	width: 315px;
+*/
+.carousel-inner {
+	margin: 0 auto;
+	width: 100%;
+}
+.item {
+	margin: 0 auto;
+}
+.carousel-inner .item {
+    background:#F9F9F9;
+    border:1px solid #E0E0E0;
+    overflow:hidden;
+    margin-bottom:1em;
+    margin-top:1em;
+    padding:5px;
+    width: 1000px;
+    height: 300px;
+}
+
+.carousel-inner > .item > img {
+    margin: 0pt 3px;
+    padding: 2px;
+    height: none;
+    width:  100%;
+    overflow: hidden;
+    background-size: cover;
+}

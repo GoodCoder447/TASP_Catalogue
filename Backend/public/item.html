@@ -1,161 +1,142 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+  <head>
+    <title>TASP Market</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel=stylesheet href="index.css"/>
+    <link rel=stylesheet href="item.css"/>
 
-<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://darsa.in/sly/examples/js/vendor/plugins.js"></script>
+    <script src="http://darsa.in/sly/js/sly.min.js"></script>
+    <script type="text/javascript" src="index.js" ></script>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <style  type="text/css">
+      div.hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
 
-    <title>Item Page</title>
-	
-	<link href="css/browseStyles.css" rel="stylesheet">
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/landing-page.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-
-<body ng-app="app">
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
-        <div class="container topnav">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand topnav" href="index.html">Home</a>
-                
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="browse.html">Browse</a>
-                    </li>
-                   
-                    <li>
-                        <a href="about.html">About</a>
-                    </li>
-                    <li>
-                        <a href="http://localhost:3000/logout">Log Out</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-
-    <!-- Header -->
-    <div class="top" ng-controller="profile">
-        <div class="container">
-
-            <div class="row">
-                <div>
-                    
-                    <h1>Item Page</h1>
-                    <hr class="intro-divider">        
-   
-   
-
-				<div class="col-sm-4"></div>
-
-			
-		
-		</div>
-		</div>
-          
-        </div>
-    <div>
-      
-          
-        <ul>
-          <li> 
-            <span> {{items.desc}} </span>
-            <span> {{items.price}} </span>
-            <span> {{items.category}} </span>
-            <span> {{items.table}} </span>
-            
+    <div class="head">
+      <img id="TaspLogo" src="http://placehold.it/120x55">
+      <!-- <button> </button> -->
+      <nav class="navbar navbar-light bg-faded navbar-static-top">
+        <ul id="theHead" class="nav navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
-      </ul>
-    <button class="btn btn-primary " ng-click="cash()">Cash Checkout</button>
-    <button class="btn btn-primary " ng-click="paypal()">Paypal Checkout</button>
+        </ul>
+
+        <div class="col-sm-3 col-md-3 pull-right">
+          <form class="navbar-form" role="search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+              <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </nav>
     </div>
-        
 
+    <div class="container-fluid">
+    <div class="content-wrapper"> 
+    <div class="item-container">  
+      <div class="container"> 
+        <div class="col-md-12">
+          <div class="product col-md-3 service-image-left">
+                    
+            <center>
+              <img id="item-display" src="" alt=""></img>
+            </center>
+          </div>
+          
+          <div class="container service1-items col-sm-3 col-md-3 pull-left">
+            <center>
+              <a id="item-1" class="service1-item">
+                <img src="" alt=""></img>
+              </a>
+              <a id="item-2" class="service1-item">
+                <img src="" alt=""></img>
+              </a>
+              <a id="item-3" class="service1-item">
+                <img src="" alt=""></img>
+              </a>
+            </center>
+          </div>
+          <div class="col-md-6 pull-right">
+          <div class="product-title">Title</div>
+          <div class="product-desc">Short description</div>
+          
+          <hr>
+          <div class="product-price">$1234.00</div>
+          <div class="product-stock">In Stock</div>
+          <hr>
+          <div class="btn-group cart">
+            <button type="button" class="btn btn-success">
+              <span class="glyphicon glyphicon-shopping-cart"></span>
+              Cart
+            </button>
+          </div>
+          <div class="btn-group wishlist">
+            <button type="button" class="btn btn-danger">
+              <span class="glyphicon glyphicon-bookmark"></span>
+              Wishlist
+            </button>
+          </div>
+        </div>
+        </div>
+          
         
-    
-		
+      </div> 
     </div>
+    <div class="container-fluid">   
+      <div class="col-md-12 product-info">
+          <ul id="myTab" class="nav nav-tabs nav_tabs">
+            
+            <li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
+            <li><a href="#service-two" data-toggle="tab">PRODUCT INFO</a></li>
+           
+            
+          </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="service-one">
+             
+              <section class="container product-info">
+                Large description of stuff.
 
-	
-  
+                <h3>Big Features:</h3>
+                <li>Thing 1</li>
+                <li>Thing 2</li>
+              </section>
+                      
+            </div>
+          <div class="tab-pane fade" id="service-two">
+            
+            <section class="container">
+                Large description of stuff.
 
-	
+                <h3>Big Features:</h3>
+                <li>Thing 1</li>
+                <li>Thing 2</li>
+            </section>
+            
+          </div>
+         
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>
 
-</body>
-    
-    
-<style>
-    body{
-    
-    }
-    .centered-form{
-        margin-top: 30px;
-    }
-
-    .centered-form .panel{
-        background: rgba(255, 255, 255, 0.8);
-        box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
-    }
-</style>
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-	<script src="socket.io/socket.io.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-    
-	<script src="js/item.js"></script>
-	
-	<script>
-$(function () {
-    $(":file").change(function () {
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = imageIsLoaded;
-            reader.readAsDataURL(this.files[0]);
-        }
-    });
-});
-
-function imageIsLoaded(e) {
-    $('#img-responsive').attr('src',e.target.result);
-  };
-</script>
-
+   	    
+   	  </div>
+   	</div>
+  </body>
 </html>
+
