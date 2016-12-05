@@ -23,6 +23,13 @@ angular.module('app',[]).controller('profile', function($scope, $http) {
 	}
     getitem();
 
+$scope.cash = function() {
+    window.location.href = 'checkout.html?id='+foo;
+}
+
+$scope.paypal = function() {
+    
+}
     
 socket.on('receiveItem',function(list){
     console.log(list);
