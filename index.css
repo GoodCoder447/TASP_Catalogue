@@ -49,7 +49,7 @@ form-line {
 /*//////////// Start Base CSS ////////////*/
 
 body {
-	background: #fffaed; 
+	background: #e8e8e8; 
 }
 
 .head {
@@ -85,7 +85,9 @@ body {
 		background-color:#e8e8e8;
 
 }
-
+#featureh {
+	border-left: 10px;
+}
 
 /*##############  Item Carousel  ##################*/
 .container { margin: 0 auto; }
